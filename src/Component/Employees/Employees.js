@@ -38,7 +38,6 @@ function Employees() {
 
     useEffect(() => {
         setState(false)
-        setState("")
         setImage("")
         setEmployeeName("")
         setSalary("")
@@ -52,7 +51,7 @@ function Employees() {
         if (filterdData.length > 0) {
             const newRows = filterdData.map((data, i) => {
                 return (
-                    createData(process.env.REACT_APP_API_BASE_URL+ data.profile_image, data.email, data.name, data.department)
+                    createData(process.env.REACT_APP_API_BASE_URL+data.profile_image, data.email, data.name, data.department)
                 )
             }
             );

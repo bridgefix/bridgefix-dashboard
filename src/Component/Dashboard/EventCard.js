@@ -66,21 +66,13 @@ function EventCard() {
     const deleteEvent = (id) => {
         swal({
             title: "Are you sure?",
-            text: "Are you sure that you want to Delete Holiday",
+            text: "Are you sure that you want to Delete Event",
             icon: "warning",
             dangerMode: true,
             buttons: true
         })
             .then(willDelete => {
                 if (willDelete) {
-                    swal({
-                        title: "Deleted!",
-                        text: "Your Holiday has been deleted! SuccessFully",
-                        icon: "success",
-                        successMode: true,
-                        timer: "3000",
-                        buttons: false
-                    });
                     dispatch(deleteEventAPI(config, id))
                 }
             });

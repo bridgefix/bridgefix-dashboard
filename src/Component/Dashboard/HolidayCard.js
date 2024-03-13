@@ -65,14 +65,6 @@ function HolidayCard() {
         })
             .then(willDelete => {
                 if (willDelete) {
-                    swal({
-                        title: "Deleted!",
-                        text: "Your Holiday has been deleted! SuccessFully",
-                        icon: "success",
-                        successMode: true,
-                        timer: "3000",
-                        buttons: false
-                    });
                     dispatch(deleteHolidayAPI(config, id))
                 }
             });

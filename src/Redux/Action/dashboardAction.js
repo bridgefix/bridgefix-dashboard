@@ -72,6 +72,14 @@ export const deleteHolidayAPI = (token, id) => {
     return (dispatch) => {
         axios.delete(`${process.env.REACT_APP_API_BASE_URL}/hrm/holiday/create/${id}/`, token)
             .then((res) => {
+                swal({
+                    title: "Deleted!",
+                    text: "Your Holiday has been deleted! SuccessFully",
+                    icon: "success",
+                    successMode: true,
+                    timer: "3000",
+                    buttons: false
+                });
                 dispatch(getHolidayList(token))
             })
     }
@@ -128,6 +136,14 @@ export const deleteEventAPI = (token, id) => {
     return (dispatch) => {
         axios.delete(`${process.env.REACT_APP_API_BASE_URL}/hrm/event/${id}/`, token)
             .then((res) => {
+                swal({
+                    title: "Deleted!",
+                    text: "Your Event has been deleted! SuccessFully",
+                    icon: "success",
+                    successMode: true,
+                    timer: "3000",
+                    buttons: false
+                });
                 dispatch(getEventList(token))
             })
     }
