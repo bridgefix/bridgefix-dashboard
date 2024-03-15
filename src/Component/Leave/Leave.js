@@ -136,7 +136,7 @@ function Leave() {
                                 <label className='mt-4'>Total Leave Days <span style={{ color: "red" }}> * </span> :</label>
                                 <input type='number' className='form-control mt-2' value={leaveDays} onChange={(e) => setLeaveDays(e.target.value)}></input>
 
-                                <label className='mt-4'>Total Date <span style={{ color: "red" }}> * </span> :</label>
+                                <label className='mt-4'>Date <span style={{ color: "red" }}> * </span> :</label>
                                 <input type='date' className='form-control mt-2' value={leaveDate} onChange={(e) => setLeaveDate(e.target.value)}></input>
 
                                 <label className='mt-4'>Leave Type<span style={{ color: "red" }}> * </span> :</label>

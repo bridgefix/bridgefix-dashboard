@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Status.css';
 import Search_Input from '../CommonComp/Search_Input';
 import { CacheProvider, ThemeProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import MUIDataTable from 'mui-datatables';
 import { createTheme } from "@mui/material/styles";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getEmployee } from '../../Redux/Action/employeeAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 const muiCache = createCache({
     key: "mui-datatables",
@@ -13,13 +15,28 @@ const muiCache = createCache({
 });
 
 export default function Status() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [responsive, setResponsive] = React.useState("standard");
     const [tableBodyHeight, setTableBodyHeight] = React.useState("470px");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = React.useState("");
+    const [data, setData] = useState([])
+    const [selectedId, setSelectedId] = useState(null);
+    const config = { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    const employeeList = useSelector((state) => state.employeeReducer.employeeList)
+    useEffect(() => {
+        dispatch(getEmployee(config))
+    }, [])
+    const handleShowStatus = (id) => {
+        setSelectedId(id);
+        navigate(`/status/${id}/`)
+    }
+    console.log(selectedId)
 
     const column = [
         { name: "ID", options: { filter: false } },
-        { name: "USERNAME", options: { filter: false } },
+        { name: "S.N.", options: { filter: false } },
+        { name: "EMAIL", options: { filter: false } },
         { name: "NAME", options: { filterOptions: { fullWidth: true } } },
         { name: "DEPARTMENT", options: { filter: false } },
         {
@@ -29,22 +46,31 @@ export default function Status() {
                 customBodyRender: (value, tableMeta, updateValue) => {
                     const id = tableMeta.rowData[0];
                     return (
-                        <Link to={`/status/${id}/`} style={{ cursor: "pointer",textDecoration:"none" }}>
+                        <a style={{ cursor: "pointer", textDecoration: "none" }} onClick={() => handleShowStatus(id)}>
                             {value}
-                        </Link>
+                        </a>
                     );
                 }
             }
         },
     ];
+    React.useEffect(() => {
+        if (employeeList.length > 0) {
+            const newRows = employeeList.map((data, i) =>
+                [
+                    data.id,
+                    i + 1,
+                    data.email,
+                    data.name,
+                    data.department,
+                    "Click"
+                ]
+            );
 
-    const data = [
-        ["1", "vishupatidar10@gmail.com", "Vishal Patidar", "Development", "Click"],
-        ["2", "test@gmail.com", "Test", "None", "Click"],
-        ["3", "sshrikant919@gmail.com", "Shrikant Sharma", "Development", "Click"],
-        ["4", "sahuharshit409@gmail.com", "Harshit Sahu", "Development", "Click"],
-        ["5", "pbirle2015@gmail.com", "Pooja Birla", "Development", "Click"],
-    ];
+            setData(newRows);
+        }
+    }, [employeeList]);
+
 
     const options = {
         search: true,
@@ -57,6 +83,9 @@ export default function Status() {
         tableBodyHeight,
         tableBodyMaxHeight,
         setCellProps: (cellValue, columnIndex) => {
+            if (columnIndex === 0) {
+                return { className: 'hidden-column' };
+            }
             return { style: { textAlign: 'center' } };
         },
         selectableRows: 'none',
@@ -67,7 +96,7 @@ export default function Status() {
             <div className="statusStyle">
                 <Search_Input />
             </div>
-            <div className='m-4'>
+            <div className='m-4 statusEmplyeeStyle'>
                 <CacheProvider value={muiCache}>
                     <ThemeProvider theme={createTheme()}>
                         <MUIDataTable
@@ -75,7 +104,7 @@ export default function Status() {
                             data={data}
                             columns={column}
                             options={options}
-                            className="custom-table" 
+                            className="custom-table"
                         />
                     </ThemeProvider>
                 </CacheProvider>
