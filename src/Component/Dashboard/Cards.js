@@ -43,11 +43,6 @@ function Cards() {
                 }
                 <div className='CardStyle1'>
                     <EventCard />
-                    {/* <div style={{ padding: "20px" }}>
-                        <h2>Events</h2>
-                        <div style={{ height: "20px", background: "#e9ecef", width: "100%" }}></div>
-                        <p>Sorry, there are no upcoming events to display at this time. Please check back later.</p>
-                    </div> */}
                     <HolidayCard />
                 </div>
             </div>

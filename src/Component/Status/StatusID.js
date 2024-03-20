@@ -24,8 +24,8 @@ export default function StatusID() {
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
     const [dailyStatus, setDailyStatus] = useState("");
     const [date, setDate] = useState("");
-    const [inTime, setInTime] = useState("10:30:55")
-    const [outTime, setOutTime] = useState("19:30:55")
+    const [inTime, setInTime] = useState("10:30:01")
+    const [outTime, setOutTime] = useState("19:30:01")
     const [projectName, setProjectName] = useState("")
     const [data, setData] = useState([])
     const config = { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
@@ -44,8 +44,8 @@ export default function StatusID() {
         setState(false)
         setDailyStatus("")
         setDate("")
-        setInTime("10:30:55")
-        setOutTime("19:30:55")
+        setInTime("10:30:01")
+        setOutTime("19:30:01")
         setProjectName("")
 
         if (StatusIDList.length > 0) {
